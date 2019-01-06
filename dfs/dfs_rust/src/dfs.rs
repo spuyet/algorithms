@@ -7,22 +7,22 @@ pub struct Graph {
     pub entry: Node
 }
 
-fn _afs(node: &Node, value: i32) -> Option<&Node> {
+fn _dfs(node: &Node, value: i32) -> Option<&Node> {
     for neighbor in node.neighbors.iter() {
         if neighbor.value == value {
             return Some(neighbor);
         } else {
-            return _afs(neighbor, value);
+            return _dfs(neighbor, value);
         }
     }
     None
 }
 
-pub fn afs(graph: &Graph, value: i32) -> Option<&Node> {
+pub fn dfs(graph: &Graph, value: i32) -> Option<&Node> {
     let entrypoint = &graph.entry;
 
     if entrypoint.value == value {
         return Some(entrypoint)
     }
-    _afs(entrypoint, value)
+    _dfs(entrypoint, value)
 }

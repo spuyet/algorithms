@@ -1,4 +1,4 @@
 [[package]]
-name = "afs_rust"
+name = "dfs_rust"
 version = "0.1.0"
 
