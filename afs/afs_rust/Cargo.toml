@@ -1,0 +1,7 @@
+[package]
+name = "afs_rust"
+version = "0.1.0"
+authors = ["Sebastien Puyet <sebastien@puyet.fr>"]
+edition = "2018"
+
+[dependencies]
