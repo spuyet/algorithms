@@ -6,7 +6,7 @@ use std::collections::HashMap;
 
 mod dfs;
 
-fn graph_generator<'a>(filename: &String) -> std::io::Result<HashMap<String, dfs::Node>> {
+fn graph_generator(filename: &String) -> std::io::Result<HashMap<String, dfs::Node>> {
     let f = File::open(&filename)?;
     let mut reader = BufReader::new(f);
 
@@ -30,7 +30,7 @@ fn graph_generator<'a>(filename: &String) -> std::io::Result<HashMap<String, dfs
 fn main() {
     let args : Vec<String> = env::args().collect();
     if args.len() < 2 {
-        println!("A file has to be passed as argument.");
+        println!("A file has to be given as argument.");
         process::exit(0x0100);
     } else {
         let filename = &args[1];
