@@ -1,28 +1,34 @@
+use std::collections::HashMap;
+
+#[derive(Debug)]
 pub struct Node {
-    pub value: i32,
-    pub neighbors: Vec<Node>,
+    pub value: String,
+    pub neighbors: Vec<String>,
 }
 
-pub struct Graph {
-    pub entry: Node
-}
+fn _dfs(graph: &HashMap<String, Node>, visited: &mut HashMap<String, bool>, stack: &mut Vec<String>) {
+    let label = &stack[stack.len() - 1];
+    visited.insert(label.to_string(), true);
 
-fn _dfs(node: &Node, value: i32) -> Option<&Node> {
+    let node = &graph.get(label).unwrap();
+    print!("{}", node.value);
+
     for neighbor in node.neighbors.iter() {
-        if neighbor.value == value {
-            return Some(neighbor);
-        } else {
-            return _dfs(neighbor, value);
+        let already_visited = visited.get(neighbor).unwrap_or(&false);
+        if already_visited == &false  && graph.contains_key(neighbor) {
+            print!(" ");
+            stack.push(neighbor.to_string());
+            _dfs(graph, visited, stack);
         }
     }
-    None
+    stack.pop();
 }
 
-pub fn dfs(graph: &Graph, value: i32) -> Option<&Node> {
-    let entrypoint = &graph.entry;
+pub fn dfs(graph: &HashMap<String, Node>, entrypoint: &str,) {
+    let mut visited = HashMap::with_capacity(graph.len() as usize);
+    let mut stack : Vec<String> = vec![];
 
-    if entrypoint.value == value {
-        return Some(entrypoint)
-    }
-    _dfs(entrypoint, value)
+    stack.push(entrypoint.to_string());
+    _dfs(&graph, &mut visited, &mut stack);
+    print!("\n");
 }
