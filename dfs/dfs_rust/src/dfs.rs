@@ -10,15 +10,15 @@ fn _dfs(graph: &HashMap<String, Node>, visited: &mut HashMap<String, bool>, stac
     let label = &stack[stack.len() - 1];
     visited.insert(label.to_string(), true);
 
-    let node = &graph.get(label).unwrap();
-    print!("{}", node.value);
+    if let Some(node) = &graph.get(label) {
+        print!("{}", node.value);
 
-    for neighbor in node.neighbors.iter() {
-        let already_visited = visited.get(neighbor).unwrap_or(&false);
-        if already_visited == &false  && graph.contains_key(neighbor) {
-            print!(" ");
-            stack.push(neighbor.to_string());
-            _dfs(graph, visited, stack);
+        for neighbor in node.neighbors.iter() {
+            if let None = visited.get(neighbor) {
+                print!(" ");
+                stack.push(neighbor.to_string());
+                _dfs(graph, visited, stack);
+            }
         }
     }
     stack.pop();

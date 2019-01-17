@@ -9,12 +9,10 @@ mod dfs;
 fn graph_generator(filename: &String) -> std::io::Result<HashMap<String, dfs::Node>> {
     let f = File::open(&filename)?;
     let mut reader = BufReader::new(f);
-
     let mut line = String::new();
     reader.read_line(&mut line)?;
 
     let mut graph = HashMap::with_capacity(line.trim().parse::<usize>().unwrap());
-
     for line in reader.lines() {
         let mut vec = line?.split(" ").map(|s| s.to_string()).collect::<Vec<String>>();
         let neighbor = vec.pop().unwrap();
